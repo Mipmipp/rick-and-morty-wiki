@@ -55,3 +55,131 @@
     }    
 }
 
+#header {
+    background: #474b4f;
+    margin-bottom: 40px;
+}
+
+#header img {
+    width: 354px;
+    position: absolute;
+    margin-top: -42px;
+}
+
+#header h1 {
+    text-align-last: center;
+    font-size: 63px;
+    color: #d3f0aa;
+    padding-top: 50px;
+}
+
+#header h2 {
+    text-align-last: center;
+    font-size: 35px;
+    color: #86b249;
+    padding-bottom: 45px;
+}
+
+.card {
+    width: 16rem;
+    cursor: pointer;
+    margin: 15px;
+    background-color: #6b6e70;
+    border-color: #222629;
+    border-radius: 15px;
+}
+
+.col-6.col-xl-3 {
+    justify-content: center;
+    display: grid;
+}
+
+.card p {
+    color: white;
+    font-family: 'Barlow', sans-serif;
+}
+
+.card-title {
+    font-size: 36px;
+    margin-bottom: 17px;
+    color: gainsboro;
+}
+
+.card-body {
+    height: 70px;
+}
+
+#character-information p {
+    margin-left: 30px;
+    font-size: 19px;
+    color: #d3f0aa;
+}
+
+#modal {
+    border: 0px;
+    text-align: center;
+    background: rgba(48, 44, 44, 0.479);
+}
+
+#modal div{
+    cursor: default;
+}
+
+#modal::backdrop {
+    background-color: rgba(0, 0, 0, .85);
+}
+
+#character-information {    
+    width: 400px;
+}
+
+#image {
+    width: 100%;
+    align-self: center;
+}
+
+#information {
+    height: 100%;
+}
+
+#pagination {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#previous-page {
+    border-color: #d3f0aa !important;
+    background-color: #d3f0aa !important;
+    color: #222629 !important;
+    width: 100px;
+}
+
+#actual-page {
+    color: #d3f0aa;
+}
+
+#next-page {
+    border-color: #d3f0aa !important;
+    background-color: #d3f0aa !important;
+    color: #222629 !important;
+    width: 100px;
+}
+
+#footer {
+    background: #474b4f;
+    padding-bottom: 54px;
+    text-align: center;
+}
+
+#footer p {
+    padding-top: 61px;
+    font-size: 19px;
+    color: #86c232;
+}
+
+#footer a {
+    font-size: 17px;
+    color: #95989b;
+    font-weight: bold;
+    cursor: pointer;
+}
