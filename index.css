@@ -5,3 +5,53 @@
     background: #222629;
 }
 
+@media screen and (max-width: 570px) {
+    #header img {
+        opacity: 8%;
+        width: 280px !important;
+        margin-top: -18px !important;
+    }
+
+    #header h1 {
+        font-size: 37px !important;
+    }
+
+    .card {
+        width: 8rem !important;
+    }
+
+    .card-body {
+        height: 100px;
+    }
+
+    .card-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    #next-page {
+        width: 74px !important;
+    }
+
+    #character-information {
+        width: 100% !important;
+    }
+
+
+    #character-information p {
+        font-size: 15px !important;
+        margin-inline-start: auto !important;
+    }
+
+    #image {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    #header img {
+        opacity: 8%;
+    }    
+}
+
