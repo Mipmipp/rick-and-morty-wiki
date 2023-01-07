@@ -14,3 +14,9 @@ export function getCharacter(callback, id) {
     .catch((error) => console.log(error));
 }
 
+export function getTotalPages(callback) {
+    fetch(URL)
+    .then((response) => response.json())
+    .then((data) => callback(data.info.pages))
+    .catch((error) => console.log(error));
+}
