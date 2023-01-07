@@ -7,3 +7,10 @@ export function getCharacters(callback, page = URL) {
     .catch((error) => console.log(error));
 }
 
+export function getCharacter(callback, id) {
+    fetch(`${URL}/${id}`)
+    .then((response) => response.json())
+    .then((data) => callback(data))
+    .catch((error) => console.log(error));
+}
+
