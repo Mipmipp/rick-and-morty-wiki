@@ -6,3 +6,4 @@ import { makePagination, showCharacters } from './ui.js';
     getCharacters(showCharacters);
 }
 
+initialize();
