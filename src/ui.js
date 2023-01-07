@@ -51,3 +51,30 @@ export function showCharacters(characters) {
         $charactersList.appendChild($column);
     });
 }
+
+export function makePagination(totalPages) {
+    const $previousPage = document.getElementById('previous-page');
+    const $actualPage = document.getElementById('actual-page');
+    const $nextPage = document.getElementById('next-page');
+    let actualPage = 1;
+
+    $previousPage.addEventListener('click', () => {
+        if (actualPage > 1) {
+            actualPage--;
+            $actualPage.innerText = actualPage;
+            getCharacters(showCharacters, `https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+        } else {
+            return;
+        }
+    });
+
+    $nextPage.addEventListener('click', () => {
+        if (actualPage < totalPages) {
+            actualPage++;
+            $actualPage.innerText = actualPage;
+            getCharacters(showCharacters, `https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+        } else {
+            return;
+        }
+    });
+}
