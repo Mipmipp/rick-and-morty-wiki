@@ -1,4 +1,4 @@
-import { getCharacters, getCharacter } from './API.js';
+import { getCharacters, getCharacter } from '../services/services.js';
 
 export function showCharacter(character) {
     const $image = document.getElementById('image');
@@ -35,7 +35,7 @@ export function showCharacters(characters) {
         $column.className = 'col-6 col-xl-3';
         $card.className = 'card';
         $card.title = character.name;
-        $card.addEventListener('click', () => getCharacter(showCharacter, character.id));
+        $card.addEventListener('click', async () => showCharacter(await getCharacter(character.id).results));
         $card.addEventListener('click', () => $modal.showModal());
         $buttonClose.addEventListener('click', () => $modal.close());
         $cardBody.className = 'card-body';
@@ -57,22 +57,23 @@ export function makePagination(totalPages) {
     const $actualPage = document.getElementById('actual-page');
     const $nextPage = document.getElementById('next-page');
     let actualPage = 1;
+    let page = `https://rickandmortyapi.com/api/character/?page=${actualPage}`;
 
-    $previousPage.addEventListener('click', () => {
+    $previousPage.addEventListener('click', async () => {
         if (actualPage > 1) {
             actualPage--;
             $actualPage.innerText = actualPage;
-            getCharacters(showCharacters, `https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+            showCharacters(await getCharacters(page).results);
         } else {
             return;
         }
     });
 
-    $nextPage.addEventListener('click', () => {
+    $nextPage.addEventListener('click', async () => {
         if (actualPage < totalPages) {
             actualPage++;
-            $actualPage.innerText = actualPage;
-            getCharacters(showCharacters, `https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+            $actualPage.innerText = actualPage;       
+            showCharacters(await getCharacters(page).results);
         } else {
             return;
         }
