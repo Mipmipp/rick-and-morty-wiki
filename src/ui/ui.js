@@ -25,7 +25,8 @@ export function showCharacters(characters) {
     const $buttonClose = document.querySelector('#btn-close');
     $charactersList.innerHTML = '';
 
-    characters.forEach((character) => {
+    characters.forEach(async (character) => {
+        const characterInformation = await getCharacter(character.id);
         const $column = document.createElement('div');
         const $card = document.createElement('div');
         const $cardBody = document.createElement('div');
@@ -35,7 +36,7 @@ export function showCharacters(characters) {
         $column.className = 'col-6 col-xl-3';
         $card.className = 'card';
         $card.title = character.name;
-        $card.addEventListener('click', async () => showCharacter(await getCharacter(character.id).results));
+        $card.addEventListener('click', () => showCharacter(characterInformation));
         $card.addEventListener('click', () => $modal.showModal());
         $buttonClose.addEventListener('click', () => $modal.close());
         $cardBody.className = 'card-body';
@@ -57,13 +58,13 @@ export function makePagination(totalPages) {
     const $actualPage = document.getElementById('actual-page');
     const $nextPage = document.getElementById('next-page');
     let actualPage = 1;
-    let page = `https://rickandmortyapi.com/api/character/?page=${actualPage}`;
 
     $previousPage.addEventListener('click', async () => {
         if (actualPage > 1) {
             actualPage--;
             $actualPage.innerText = actualPage;
-            showCharacters(await getCharacters(page).results);
+            let characters = await getCharacters(`https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+            showCharacters(characters.results);
         } else {
             return;
         }
@@ -73,7 +74,8 @@ export function makePagination(totalPages) {
         if (actualPage < totalPages) {
             actualPage++;
             $actualPage.innerText = actualPage;       
-            showCharacters(await getCharacters(page).results);
+            let characters = await getCharacters(`https://rickandmortyapi.com/api/character/?page=${actualPage}`);
+            showCharacters(characters.results);
         } else {
             return;
         }
