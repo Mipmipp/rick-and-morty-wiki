@@ -1,9 +1,10 @@
-import { getCharacters, getTotalPages } from './API.js';
-import { makePagination, showCharacters } from './ui.js';
+import { getCharactersFromAPI, getTotalPages } from './api/api.js';
+import { makePagination, showCharacters } from './ui/ui.js';
 
- function initialize() {
+async function initialize() {
+    const firstCharactersScreen = await (getCharactersFromAPI());
     getTotalPages(makePagination);
-    getCharacters(showCharacters);
+    showCharacters(firstCharactersScreen.results);
 }
 
 initialize();
