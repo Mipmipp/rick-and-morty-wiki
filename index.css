@@ -69,7 +69,7 @@
 #header h1 {
     text-align-last: center;
     font-size: 63px;
-    color: #d3f0aa;
+    color: #95989b;
     padding-top: 50px;
 }
 
@@ -87,6 +87,22 @@
     background-color: #6b6e70;
     border-color: #222629;
     border-radius: 15px;
+}
+
+#characters-list .card {
+    transition: all .2s ease-in-out;
+}
+
+#characters-list .card:hover {
+    transform: scale(1.05);
+}
+
+.btn.btn-success {
+    transition: all .2s ease-in-out;
+}
+
+.btn.btn-success:hover {
+    transform: scale(1.05);
 }
 
 .col-6.col-xl-3 {
@@ -182,4 +198,49 @@
     color: #95989b;
     font-weight: bold;
     cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+a:hover {
+    color:#86c232 !important;
+}
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #86c232 #474b4f;
+  }
+  
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+width: 12px;
+}
+  
+*::-webkit-scrollbar-track {
+background: #474b4f;
+}
+  
+*::-webkit-scrollbar-thumb {
+background-color: #86b249;
+border-radius: 20px;
+border: 3px solid #474b4f;
+}
+
+@keyframes append-animate {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;	
+	}
+}
+
+#characters-list div {
+	animation: append-animate .3s linear;
+}
+
+#modal {
+	animation: append-animate .3s linear;
 }
