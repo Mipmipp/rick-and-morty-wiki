@@ -147,6 +147,7 @@
 
 #character-information {    
     width: 400px;
+    margin: 0 !important;
 }
 
 #image {
