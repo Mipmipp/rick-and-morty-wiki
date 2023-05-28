@@ -1,4 +1,4 @@
-# ![Favicon](https://raw.githubusercontent.com/Mipmipp/rick-and-morty-wiki/main/pictures/favicon.png)   Rick and Morty Wiki
+# ![Favicon](https://raw.githubusercontent.com/Mipmipp/rick-and-morty-wiki/main/src/assets/favicon.png)   Rick and Morty Wiki
 
 This is a Rick and Morty Wiki page where you can find information about various characters from the show. It is made by consuming the [Rick and Morty API](https://rickandmortyapi.com/).
 
@@ -49,4 +49,9 @@ If you have any questions, suggestions, or feedback, feel free to reach out to m
 Here are some screenshots of the Rick and Morty wiki website:
 
 _Rick and Morty wiki website view on PC._
-![PC view](https://raw.githubusercontent.com/Mipmipp/rick-and-morty-wiki/main/pictures/screenshot.png)
+<br>
+<img src="https://raw.githubusercontent.com/Mipmipp/rick-and-morty-wiki/main/src/assets/screenshot-1.png" alt="PC view" style="height: 700px; width: 700;">
+
+_Rick and Morty wiki website view on phone._
+<br>
+<img src="https://raw.githubusercontent.com/Mipmipp/rick-and-morty-wiki/main/src/assets/screenshot-2.png" alt="phone view" style="height: 600px; width: 400;">
