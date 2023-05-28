@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -c-1"
+    "start": "http-server -c-1",
+    "test:coverage": "jest --coverage",
+    "test:related": "jest --findRelatedTests",
+    "test:all": "jest"
   },
   "repository": {
     "type": "git",
