@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/Mipmipp/rick-and-morty-wiki#readme",
   "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.2",
+    "babel-jest": "^29.5.0",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
