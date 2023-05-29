@@ -11,7 +11,7 @@ beforeEach(() => {
 });
 
 describe("getCharacters", () => {
-    test("load characters list with default page", () => {
+    test("loads characters list with default page", () => {
         global.fetch.mockImplementationOnce(
             () =>
                 new Promise((resolve) => {
@@ -27,7 +27,7 @@ describe("getCharacters", () => {
         expect(global.fetch).toHaveBeenCalledWith(BASE_URL);
     });
 
-    test("load characters list with page defined by user", () => {
+    test("loads characters list with user-defined page", () => {
         global.fetch.mockImplementationOnce(
             () =>
                 new Promise((resolve) => {
@@ -45,7 +45,7 @@ describe("getCharacters", () => {
 });
 
 describe("getCharacter", () => {
-    test("load 1 character", () => {
+    test("loads a single character", () => {
         global.fetch.mockImplementationOnce(
             () =>
                 new Promise((resolve) => {
@@ -61,7 +61,7 @@ describe("getCharacter", () => {
         expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/3`);
     });
 
-    test("load character with wrong id", () => {
+    test("throws error when ID is missing", () => {
         expect(getCharacterFromAPI()).rejects.toEqual(
             new Error("A ID is needed to load a character.")
         );
@@ -71,7 +71,7 @@ describe("getCharacter", () => {
 });
 
 describe("getTotalPages", () => {
-    test("get total pages without problems", async () => {
+    test("successfully retrieves total pages", async () => {
         global.fetch.mockResolvedValue({
             json: jest.fn().mockResolvedValue({
                 info: {
@@ -85,7 +85,7 @@ describe("getTotalPages", () => {
         expect(totalPages).toBe(10);
     });
 
-    test("error getting total pages", async () => {
+    test("throws error when retrieving total pages", async () => {
         const error = new Error("API Error");
         global.fetch.mockRejectedValue(error);
 
