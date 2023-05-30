@@ -25,6 +25,7 @@ const character = [
         name: "rick sanchez",
     },
 ];
+
 jest.mock("../../api/api", () => ({
     getCharactersFromAPI: jest.fn(),
     getCharacterFromAPI: jest.fn(),
