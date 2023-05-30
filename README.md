@@ -11,6 +11,7 @@ This website allows you to explore the world of Rick and Morty by providing deta
 - HTML5
 - CSS3
 - JavaScript (ES modules)
+- Jest
 - Bootstrap
 
 ## Features
@@ -19,6 +20,7 @@ This website allows you to explore the world of Rick and Morty by providing deta
 - Integration with the Rick and Morty API to fetch character data.
 - User-friendly interface with intuitive navigation.
 - Caching mechanism implemented using JavaScript vanilla.
+- Rigorous Jest unit testing to ensure the application functions flawlessly and catches any potential bugs.
 
 ## Demo
 
