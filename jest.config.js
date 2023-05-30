@@ -1,5 +1,5 @@
 module.exports = {
-    testEnvironment: "node",
+    testEnvironment: "jsdom",
     collectCoverage: true,
     coverageReporters: ["text", "html"],
     setupFiles: ["jest-localstorage-mock"],
