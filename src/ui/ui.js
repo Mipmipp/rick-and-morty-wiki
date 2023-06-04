@@ -1,5 +1,3 @@
-import { getCharacters, getCharacter } from "../services/services.js";
-
 export function showCharacter(character) {
     const $image = document.getElementById("image");
     const $name = document.getElementById("name");
@@ -66,7 +64,7 @@ export function createCharacterCard(
     $charactersList.appendChild($column);
 }
 
-export function makePagination(totalPages) {
+export function makePagination(totalPages, charactersService) {
     const $previousPage = document.getElementById("previous-page");
     const $actualPage = document.getElementById("actual-page");
     const $nextPage = document.getElementById("next-page");
@@ -76,10 +74,10 @@ export function makePagination(totalPages) {
         if (actualPage > 1) {
             actualPage--;
             $actualPage.innerText = actualPage;
-            let characters = await getCharacters(
+            let characters = await charactersService.get(
                 `https://rickandmortyapi.com/api/character/?page=${actualPage}`
             );
-            showCharacters(characters.results);
+            showCharacters(characters);
         } else {
             return;
         }
@@ -89,10 +87,10 @@ export function makePagination(totalPages) {
         if (actualPage < totalPages) {
             actualPage++;
             $actualPage.innerText = actualPage;
-            let characters = await getCharacters(
+            let characters = await charactersService.get(
                 `https://rickandmortyapi.com/api/character/?page=${actualPage}`
             );
-            showCharacters(characters.results);
+            showCharacters(characters);
         } else {
             return;
         }
