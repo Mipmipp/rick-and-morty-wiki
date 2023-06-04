@@ -11,10 +11,10 @@ const charactersService = new CharactersService(
 );
 
 async function initialize() {
-    const firstCharactersScreen = await charactersService.get(defaultPage);
+    const initialCharacters = await charactersService.get(defaultPage);
     const totalPages = await getTotalPages();
-    makePagination(totalPages);
-    showCharacters(firstCharactersScreen.results);
+    showCharacters(initialCharacters);
+    makePagination(totalPages, charactersService);
 }
 
 initialize();
