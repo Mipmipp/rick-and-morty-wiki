@@ -1,4 +1,4 @@
-import { mapCharacter } from "../mappers/character";
+import { mapCharacter } from "../mappers/mapCharacter.js";
 
 export class CharactersService {
     constructor(charactersAPI, charactersLocalStorage) {
