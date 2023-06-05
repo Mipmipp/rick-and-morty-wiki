@@ -11,10 +11,10 @@ export function showCharacter(character) {
     $image.alt = `${character.name} picture`;
     $name.innerText = character.name;
     $gender.innerText = `Gender: ${character.gender}`;
-    $specie.innerText = `Specie: ${character.species}`;
+    $specie.innerText = `Specie: ${character.specie}`;
     $status.innerText = `Status: ${character.status}`;
-    $origin.innerText = `Origin: ${character.origin.name}`;
-    $location.innerText = `Location: ${character.location.name}`;
+    $origin.innerText = `Origin: ${character.origin}`;
+    $location.innerText = `Location: ${character.location}`;
 }
 
 export async function showCharacters(characters) {
@@ -64,7 +64,7 @@ export function createCharacterCard(
     $charactersList.appendChild($column);
 }
 
-export function makePagination(totalPages, charactersService) {
+export function makePagination(totalPages, charactersService, callback) {
     const $previousPage = document.getElementById("previous-page");
     const $actualPage = document.getElementById("actual-page");
     const $nextPage = document.getElementById("next-page");
@@ -77,7 +77,7 @@ export function makePagination(totalPages, charactersService) {
             let characters = await charactersService.get(
                 `https://rickandmortyapi.com/api/character/?page=${actualPage}`
             );
-            showCharacters(characters);
+            callback(characters);
         } else {
             return;
         }
@@ -90,7 +90,7 @@ export function makePagination(totalPages, charactersService) {
             let characters = await charactersService.get(
                 `https://rickandmortyapi.com/api/character/?page=${actualPage}`
             );
-            showCharacters(characters);
+            callback(characters);
         } else {
             return;
         }

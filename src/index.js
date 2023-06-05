@@ -14,7 +14,7 @@ async function initialize() {
     const initialCharacters = await charactersService.get(defaultPage);
     const totalPages = await getTotalPages();
     showCharacters(initialCharacters);
-    makePagination(totalPages, charactersService);
+    makePagination(totalPages, charactersService, showCharacters);
 }
 
 initialize();
