@@ -1,78 +1,99 @@
-import "jest-localstorage-mock";
-import {
-    getCharacterFromLocalStorage,
-    getCharactersFromLocalStorage,
-    saveCharacterInLocalStorage,
-    saveCharactersInLocalStorage,
-} from "../../storage/local-storage";
-import { getCharacter, getCharacters } from "../services";
-import { getCharactersFromAPI, getCharacterFromAPI } from "../../api/api";
+import { CharactersService } from "../services";
+import { mapCharacter } from "../../mappers/mapCharacter";
 
-const page = "https://rickandmortyapi.com/api/character";
-const characters = [
-    {
-        name: "rick sanchez",
-    },
-    {
-        name: "morty smith",
-    },
-];
-const character = [
-    {
-        id: "1",
-    },
-    {
-        name: "rick sanchez",
-    },
-];
-
-jest.mock("../../api/api", () => ({
-    getCharactersFromAPI: jest.fn(),
-    getCharacterFromAPI: jest.fn(),
+jest.mock("../../mappers/mapCharacter", () => ({
+    mapCharacter: jest.fn(),
 }));
 
-beforeEach(() => {
-    localStorage.clear();
-});
+describe("CharactersService", () => {
+    let charactersAPI;
+    let charactersLocalStorage;
+    let charactersService;
 
-describe("getCharacters", () => {
-    test("loads characters from localStorage", async () => {
-        saveCharactersInLocalStorage(page, characters);
-        const retrievedCharacters = await getCharacters(page);
-        expect(retrievedCharacters).toEqual(characters);
-        expect(async () => await getCharacters(page)).not.toThrow();
-    });
-
-    test("loads characters from API and then saves characters to localStorage", async () => {
-        getCharactersFromAPI.mockResolvedValueOnce(characters);
-        const retrievedCharacters = await getCharacters(page);
-        expect(retrievedCharacters).toEqual(characters);
-
-        const charactersOnLocalStorage = getCharactersFromLocalStorage(page);
-        expect(charactersOnLocalStorage).toEqual(characters);
-    });
-});
-
-describe("getCharacter", () => {
-    test("throws error when ID is missing", async () => {
-        expect(getCharacter()).rejects.toEqual(
-            new Error("A ID is needed to load a character.")
+    beforeEach(() => {
+        charactersAPI = {
+            get: jest.fn(),
+        };
+        charactersLocalStorage = {
+            get: jest.fn(),
+            cache: jest.fn(),
+        };
+        charactersService = new CharactersService(
+            charactersAPI,
+            charactersLocalStorage
         );
     });
 
-    test("loads a single character from localStorage", async () => {
-        saveCharacterInLocalStorage("1", character);
-        const retrievedCharacter = await getCharacter("1");
-        expect(retrievedCharacter).toEqual(character);
-        expect(async () => await getCharacter("1")).not.toThrow();
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
-    test("loads a single character from API and then saves it to localStorage", async () => {
-        getCharacterFromAPI.mockResolvedValueOnce(character);
-        const retrievedCharacter = await getCharacter("1");
-        expect(retrievedCharacter).toEqual(character);
+    describe("Get", () => {
+        test("Returns characters from local storage if available.", async () => {
+            const page = "https://rickandmortyapi.com/api/character";
+            const characters = [
+                { name: "rick sanchez" },
+                { name: "morty smith" },
+            ];
 
-        const characterOnLocalStorage = getCharacterFromLocalStorage("1");
-        expect(characterOnLocalStorage).toEqual(character);
+            charactersLocalStorage.get.mockResolvedValue(characters);
+
+            const result = await charactersService.get(page);
+
+            expect(result).toEqual(characters);
+            expect(charactersLocalStorage.get).toHaveBeenCalledWith(page);
+            expect(charactersAPI.get).not.toHaveBeenCalled();
+            expect(charactersLocalStorage.cache).not.toHaveBeenCalled();
+        });
+
+        test("Returns characters from API and caches them in local storage if not available.", async () => {
+            const page = "https://rickandmortyapi.com/api/character";
+            const data = {
+                results: [{ name: "character 1" }, { name: "character 2" }],
+            };
+            const mappedCharacters = [
+                { name: "mapped character 1" },
+                { name: "mapped character 2" },
+            ];
+
+            charactersLocalStorage.get.mockRejectedValueOnce(
+                new Error("Characters not found in local storage")
+            );
+            charactersAPI.get.mockResolvedValue(data);
+            mapCharacter.mockImplementation((character) => {
+                return { name: `mapped ${character.name}` };
+            });
+            charactersLocalStorage.cache.mockResolvedValue();
+
+            const result = await charactersService.get(page);
+
+            expect(result).toEqual(mappedCharacters);
+            expect(charactersLocalStorage.get).toHaveBeenCalledWith(page);
+            expect(charactersAPI.get).toHaveBeenCalledWith(page);
+            expect(mapCharacter).toHaveBeenCalledTimes(data.results.length);
+            expect(charactersLocalStorage.cache).toHaveBeenCalledWith(
+                page,
+                mappedCharacters
+            );
+        });
+
+        test("Throws an error if both local storage and API fail.", async () => {
+            const page = "https://rickandmortyapi.com/api/character";
+
+            charactersLocalStorage.get.mockRejectedValueOnce(
+                new Error("Characters not found in local storage")
+            );
+            charactersAPI.get.mockRejectedValueOnce(
+                new Error("API request failed")
+            );
+
+            await expect(charactersService.get(page)).rejects.toThrowError(
+                "API request failed"
+            );
+            expect(charactersLocalStorage.get).toHaveBeenCalledWith(page);
+            expect(charactersAPI.get).toHaveBeenCalledWith(page);
+            expect(mapCharacter).not.toHaveBeenCalled();
+            expect(charactersLocalStorage.cache).not.toHaveBeenCalled();
+        });
     });
 });
