@@ -21,6 +21,11 @@ This website allows you to explore the world of Rick and Morty by providing deta
 - User-friendly interface with intuitive navigation.
 - Caching mechanism implemented using JavaScript vanilla.
 - Rigorous Jest unit testing to ensure the application functions flawlessly and catches any potential bugs.
+- Implementation of entities, mappers, and services as classes, providing a modular and organized architecture for better maintainability and extensibility.
+
+## Jest Coverage
+
+The application has been thoroughly tested using Jest, achieving 100% coverage. This ensures that every line of code is tested, minimizing the chances of errors and bugs.
 
 ## Demo
 
