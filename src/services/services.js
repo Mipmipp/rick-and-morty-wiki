@@ -1,29 +1,19 @@
-import { getCharactersFromAPI, getCharacterFromAPI } from '../api/api.js';
-import { 
-    getCharactersFromLocalStorage, getCharacterFromLocalStorage,
-    saveCharactersInLocalStorage, saveCharacterInLocalStorage } 
-from '../storage/local-storage.js';
+import { mapCharacter } from "../mappers/mapCharacter.js";
 
-export async function getCharacters(page) {
-    try {
-        return getCharactersFromLocalStorage(page);
-    } catch (error) {
-        const characters = await getCharactersFromAPI(page);
-        saveCharactersInLocalStorage(page, characters);
-        return characters;
-   }
-}
-
-export async function getCharacter(id) {
-    if (id === undefined) {
-        throw new Error('A ID is needed to load a character.');
+export class CharactersService {
+    constructor(charactersAPI, charactersLocalStorage) {
+        this.api = charactersAPI;
+        this.localStorage = charactersLocalStorage;
     }
 
-    try {
-        return getCharacterFromLocalStorage(id);
-    } catch (error) {
-        const character = await getCharacterFromAPI(id);
-        saveCharacterInLocalStorage(id, character);
-        return character;
+    async get(page) {
+        try {
+            return await this.localStorage.get(page);
+        } catch (error) {
+            const data = await this.api.get(page);
+            const characters = data.results.map(mapCharacter);
+            this.localStorage.cache(page, characters);
+            return characters;
+        }
     }
 }
